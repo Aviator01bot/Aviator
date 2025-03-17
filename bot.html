@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviator Bot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 20px;
+            padding: 20px;
+            background: #1e1e1e;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        input, select, button {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+        button {
+            background: red;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: darkred;
+        }
+        .panel {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 220px;
+            background: #222;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+        .number {
+            font-size: 24px;
+            font-weight: bold;
+            color: lime;
+        }
+        #expandPanel {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: none;
+        }
+        .logo {
+            margin-top: 10px;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🚀Aviator Bot🚀</h1>
+    <img src="https://i.postimg.cc/JhQ3y9zD/awiator-1win.png" class="logo" alt="Aviator Game Logo">
+
+    <div class="container" id="loginBox">
+        <h2>✈️RSGO365✈️</h2>
+        <input type="text" id="gameID" placeholder="Enter Game ID" required>
+        <input type="text" id="username" placeholder="Enter Username" required>
+        <input type="password" id="password" placeholder="Enter Password" required>
+        <select id="freeCash">
+            <option value="1000">1000</option>
+            <option value="2000">2000</option>
+            <option value="5000">5000</option>
+            <option value="6000">6000</option>
+        </select>
+        <button id="botButton">🚀ACTIVATE BOT🚀</button>
+    </div>
+
+    <!-- Floating Game Panel -->
+    <div class="panel" id="gamePanel">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3>AVIATOR BOT</h3>
+            <button id="minimizePanel" style="background: black; color: white; border: none; cursor: pointer;">—</button>
+        </div>
+        <input type="password" id="pinInput" placeholder="Enter 4-digit PIN" maxlength="4">
+        <button id="verifyPin">Verify PIN</button>
+        <button id="startGame" style="display: none;">Start Game</button>
+        <p class="number" id="randomNumber">---</p>
+        <button id="nextNumber" style="display: none;">Next</button>
+    </div>
+
+    <!-- Expand Button -->
+    <button id="expandPanel">Open Aviator Bot</button>
+
+    <iframe id="gameFrame" src="" style="width:100%; height:90vh; border:none; display:none;"></iframe>
+
+    <script>
+        document.getElementById("botButton").addEventListener("click", function() {
+            document.getElementById("loginBox").style.display = "none";
+            document.getElementById("gameFrame").src = "https://rsgo01.com/#/home/game"; // ✅ Game Link
+            document.getElementById("gameFrame").style.display = "block";
+            document.getElementById("gamePanel").style.display = "block";
+        });
+
+        // Minimize Panel
+        document.getElementById("minimizePanel").addEventListener("click", function () {
+            document.getElementById("gamePanel").style.display = "none";
+            document.getElementById("expandPanel").style.display = "block";
+        });
+
+        // Expand Panel
+        document.getElementById("expandPanel").addEventListener("click", function () {
+            document.getElementById("gamePanel").style.display = "block";
+            document.getElementById("expandPanel").style.display = "none";
+        });
+
+        // PIN Verification
+        document.getElementById("verifyPin").addEventListener("click", function () {
+            let pin = document.getElementById("pinInput").value;
+            if (pin === "3055") {
+                alert("✅ PIN Verified! You can now start the game.");
+                document.getElementById("startGame").style.display = "block";
+                document.getElementById("nextNumber").style.display = "block";
+                document.getElementById("pinInput").style.display = "none";
+                document.getElementById("verifyPin").style.display = "none";
+            } else {
+                alert("❌ Incorrect PIN! Try again.");
+            }
+        });
+
+        // Generate Random Float Number (1 to 50)
+        function generateRandomNumber() {
+            let randomNumber = (Math.random() * (50 - 1) + 1).toFixed(2);
+            document.getElementById("randomNumber").innerText = randomNumber;
+        }
+
+        document.getElementById("startGame").addEventListener("click", generateRandomNumber);
+        document.getElementById("nextNumber").addEventListener("click", generateRandomNumber);
+    </script>
+
+</body>
+          </html>
